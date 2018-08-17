@@ -28,3 +28,13 @@ var GetSneakers = func(w http.ResponseWriter, r *http.Request) {
 	resp["data"] = data
 	u.Respond(w, resp)
 }
+
+var GetTrueSizeByBrandAndModel = func(w http.ResponseWriter, r *http.Request) {
+
+	brand := r.URL.Query().Get("brand")
+	sneakerModel := r.URL.Query().Get("sneaker_model")
+	data := models.GetTrueSize(brand, sneakerModel)
+	resp := u.Message(true, "success")
+	resp["data"] = data
+	u.Respond(w, resp)
+}

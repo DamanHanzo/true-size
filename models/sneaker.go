@@ -9,8 +9,8 @@ import (
 type Sneaker struct {
 	gorm.Model
 	Brand string `json: "brand"`
-	SneakerModel string `json: "sneaker_model"`
-	TrueSize float32 `json: "trueSize"`
+	Sneaker_Model string `json: "sneaker_model"`
+	True_Size float32 `json: "true_size"`
 }
 
 func(sneaker *Sneaker) Validate(map[string] interface{}, bool) {
@@ -31,7 +31,7 @@ func (sneaker *Sneaker) Create() (map[string] interface{}) {
 }
 
 func GetSneaker(id uint) (*Sneaker) {
-	
+
 	sneaker := &Sneaker{}
 	err := GetDB().Table("sneakers").Where("id = ?", id).First(sneaker).Error
 	if err != nil {
@@ -49,5 +49,23 @@ func GetSneakers() ([]*Sneaker) {
 		return nil
 	}
 	return sneakers
+}
 
+func GetTrueSize(brand string, model string) (map[string] interface{}) {
+	sneakers := make([]*Sneaker, 0)
+	err := GetDB().Table("sneakers").Where("brand = ?", brand).Where("sneaker_model = ?", model).Find(&sneakers).Error
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	//iterate over all sneaker and calculate an average
+	var totalOfSizes float32
+	for _, val := range sneakers {
+		if val.True_Size != 0.0 {
+			totalOfSizes += val.True_Size
+		}
+	}
+	resp := u.Message(true, "success")
+	resp["true_size"] = totalOfSizes
+	return resp
 }
