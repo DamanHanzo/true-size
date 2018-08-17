@@ -1,0 +1,6 @@
+CREATE TABLE SNEAKERS (
+	id serial PRIMARY KEY,
+	brand VARCHAR (128) NOT NULL,
+	model VARCHAR (128) NOT NULL,
+	true_size NUMERIC (2, 2)
+);
