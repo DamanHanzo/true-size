@@ -75,8 +75,7 @@ func GetTrueSize(brand string, model string) (map[string] interface{}) {
 	for _, val := range sneakers {
 		totalOfSizes += val.True_Size
 	}
-	trueSize := totalOfSizes/float32(len(sneakers))
 	resp := u.Message(true, "success")
-	resp["true_size"] = trueSize
+	resp["true_size"] = totalOfSizes/float32(len(sneakers))
 	return resp
 }
