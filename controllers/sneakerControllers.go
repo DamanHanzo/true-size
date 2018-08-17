@@ -2,9 +2,9 @@ package controllers
 
 import (
 	"net/http"
-	"go-contacts/models"
+	"github.com/damanhanzo/true-size/models"
 	"encoding/json"
-	u "go-contacts/utils"
+	u "github.com/damanhanzo/true-size/utils"
 )
 
 var CreateSneaker = func(w http.ResponseWriter, r *http.Request) {

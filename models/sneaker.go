@@ -1,8 +1,8 @@
 package models
 
 import (
-	u "true-size/utils"
-	"github.com/damanhanzo/true-size"
+	u "github.com/damanhanzo/true-size/utils"
+	"github.com/jinzhu/gorm"
 	"fmt"
 )
 
