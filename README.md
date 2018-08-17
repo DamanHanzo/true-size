@@ -14,8 +14,14 @@ Prerequisite
 End Points
 ===========
 
-* Get all sneakers ```/api/sneakers``` HTTP_METHOD: GET
-* Get true size by brand and model ```/api/sneaker/true-size``` HTTP_METHOD: GET
-* Add a sneaker ```/api/sneaker/new``` HTTP_METHOD: POST
+* Get all sneakers ```/api/sneakers``` HTTP_METHOD: GET  
+  + Sample _curl_ Request:  
+    ```curl "http://localhost:8000/api/sneakers"```
+* Get true size by brand and model ```/api/sneaker/true-size``` HTTP_METHOD: GET  
+  + Sample _curl_ Request:  
+    ```curl -v -L "http://localhost:8000/api/sneaker/true-size?brand=adidas&sneaker_model=yeezy"```
+* Add a sneaker ```/api/sneaker/new``` HTTP_METHOD: POST  
+  + Sample _curl_ Request:  
+    ```curl -d '{"brand":"adidas", "sneaker_model":"yeezy", "true_size": 1.00}' -H "Content-Type: application/json" -X POST http://localhost:8000/api/sneaker/new```
 
 
