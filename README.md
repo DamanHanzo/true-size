@@ -3,6 +3,7 @@
 Prerequisite
 =============
 * Add a file named _.env_
+
 ...With Following Properties:
 ...```DBHOST```(for e.g.: localhost if running locally)
 ...```DBPORT``` Port that _postgres_ db is running on. Default for _postgres_ is 5432
