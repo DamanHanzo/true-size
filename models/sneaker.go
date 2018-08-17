@@ -1,9 +1,11 @@
+
 package models
 
 import (
 	u "github.com/damanhanzo/true-size/utils"
 	"github.com/jinzhu/gorm"
 	"fmt"
+	"strings"
 )
 
 type Sneaker struct {
@@ -13,16 +15,26 @@ type Sneaker struct {
 	True_Size float32 `json: "true_size"`
 }
 
-func(sneaker *Sneaker) Validate(map[string] interface{}, bool) {
-	//...
+func (sneaker *Sneaker) Validate() (map[string] interface{}, bool) {
+	if sneaker.True_Size < 1.0 && sneaker.True_Size > 5.0 {
+		return u.Message(false, "true_size has to be between 1 and 5"), false
+	}
+	if sneaker.Brand == "" {
+		return u.Message(false, "Brand cannot be null"), false
+	}
+	if sneaker.Sneaker_Model == "" {
+		return u.Message(false, "Sneaker Model is cannot be null"), false
+	}
+	return u.Message(true, "success"), true
 }
 
 func (sneaker *Sneaker) Create() (map[string] interface{}) {
 
-	// if resp, ok := sneaker.Validate(); !ok {
-	// 	return resp
-	// }
-
+	if resp, ok := sneaker.Validate(); !ok {
+		return resp
+	}
+	sneaker.Brand = strings.ToLower(sneaker.Brand)
+	sneaker.Sneaker_Model = strings.ToLower(sneaker.Sneaker_Model)
 	GetDB().Create(sneaker)
 
 	resp := u.Message(true, "success")
@@ -53,7 +65,7 @@ func GetSneakers() ([]*Sneaker) {
 
 func GetTrueSize(brand string, model string) (map[string] interface{}) {
 	sneakers := make([]*Sneaker, 0)
-	err := GetDB().Table("sneakers").Where("brand = ?", brand).Where("sneaker_model = ?", model).Find(&sneakers).Error
+	err := GetDB().Table("sneakers").Where("brand = ?", strings.ToLower(brand)).Where("sneaker_model = ?", strings.ToLower(model)).Find(&sneakers).Error
 	if err != nil {
 		fmt.Println(err)
 		return nil
@@ -61,11 +73,10 @@ func GetTrueSize(brand string, model string) (map[string] interface{}) {
 	//iterate over all sneaker and calculate an average
 	var totalOfSizes float32
 	for _, val := range sneakers {
-		if val.True_Size != 0.0 {
-			totalOfSizes += val.True_Size
-		}
+		totalOfSizes += val.True_Size
 	}
+	trueSize := totalOfSizes/float32(len(sneakers))
 	resp := u.Message(true, "success")
-	resp["true_size"] = totalOfSizes
+	resp["true_size"] = trueSize
 	return resp
 }

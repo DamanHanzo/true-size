@@ -14,11 +14,11 @@ func main() {
 
     router.HandleFunc("/api/sneaker/new", controllers.CreateSneaker).Methods("POST")
     router.HandleFunc("/api/sneakers", controllers.GetSneakers).Methods("GET")
-    router.HandleFunc("api/sneaker/true-size", controllers.GetTrueSizeByBrandAndModel).Method("GET")
+    router.HandleFunc("/api/sneaker/true-size", controllers.GetTrueSizeByBrandAndModel).Methods("GET")
 
     port := os.Getenv("PORT")
     if port == "" {
-        port = "4000" //localhost
+        port = "8000" //localhost
     }
 
     fmt.Println(port)
