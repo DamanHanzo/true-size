@@ -70,7 +70,7 @@ func GetTrueSize(brand string, model string) (map[string] interface{}) {
 		fmt.Println(err)
 		return nil
 	}
-	//iterate over all sneaker and calculate an average
+	//iterate over all sneakers and calculate an average
 	var totalOfSizes float32
 	for _, val := range sneakers {
 		totalOfSizes += val.True_Size
