@@ -8,7 +8,7 @@ import (
 	"fmt"
 )
 
-var db *gorm.db
+var db *gorm.DB
 
 func init() {
 
@@ -22,7 +22,7 @@ func init() {
 	dbName := os.Getenv("DBNAME")
 	dbHost := os.Getenv("DBHOST")
 
-	bUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, username, dbName, password)
+	dbUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, username, dbName, password)
 
 	fmt.Println(dbUri)
 

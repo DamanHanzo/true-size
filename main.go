@@ -12,10 +12,8 @@ func main() {
 
     router := mux.NewRouter()
 
-    router.HandleFunc("/api/sneaker/new", controllers.AddSneaker).Methods("POST")
+    router.HandleFunc("/api/sneaker/new", controllers.CreateSneaker).Methods("POST")
     router.HandleFunc("/api/sneakers", controllers.GetSneakers).Methods("GET")
-
-    //router.NotFoundHandler = app.NotFoundHandler
 
     port := os.Getenv("PORT")
     if port == "" {
